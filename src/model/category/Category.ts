@@ -1,8 +1,8 @@
 class Category {
-  readonly id: string;
-  readonly name: string;
-  readonly subcategories: string[];
-  readonly description: string;
+  id: string;
+  name: string;
+  subcategories: string[];
+  description: string;
 
   constructor(options: CategoryOptions) {
     const { id, name, subcategories, description } = options;

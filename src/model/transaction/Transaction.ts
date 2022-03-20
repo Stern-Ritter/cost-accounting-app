@@ -1,9 +1,9 @@
 class Transaction {
-  readonly id: string;
-  readonly eventDate: number;
-  readonly category: string;
-  readonly subcategory: string;
-  readonly amount: number;
+  id: string;
+  eventDate: number;
+  category: string;
+  subcategory: string;
+  amount: number;
 
   constructor(option: TrasactionOption) {
     const { id, eventDate, category, subcategory, amount } = option;

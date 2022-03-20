@@ -1,6 +1,7 @@
 import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import AppHeader from "../app-header/app-header";
+import About from "../about/about";
 import styles from "./app.module.css";
 
 function App() {
@@ -8,7 +9,11 @@ function App() {
     <Router>
       <AppHeader />
       <main className={styles.main}>
-        <Switch></Switch>
+        <Switch>
+          <Route path="/about" exact>
+            <About />
+          </Route>
+        </Switch>
       </main>
     </Router>
   );
