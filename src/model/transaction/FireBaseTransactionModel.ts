@@ -1,6 +1,5 @@
-import { initializeApp, deleteApp } from "firebase/app";
 import {
-  getFirestore,
+  Firestore,
   collection,
   addDoc,
   getDocs,
@@ -12,14 +11,12 @@ import TrasactionModel from "./TransactionModel";
 import transactionConverter from "../../utils/transactionConverter";
 
 class FirebaseTransactionModel extends TrasactionModel {
-  private app;
   private db;
   private collectionName;
 
-  constructor(firebaseConfig: Record<string, unknown>, collectionName: string) {
+  constructor(db: Firestore, collectionName: string) {
     super();
-    this.app = initializeApp(firebaseConfig);
-    this.db = getFirestore(this.app);
+    this.db = db;
     this.collectionName = collectionName;
   }
 
@@ -78,15 +75,6 @@ class FirebaseTransactionModel extends TrasactionModel {
     } catch (err) {
       console.log("Error deleting all transactions: ", err);
       return false;
-    }
-  }
-
-  async close(): Promise<void> {
-    try {
-      deleteApp(this.app);
-      console.log("App deleted successfully");
-    } catch (err) {
-      console.log("Error deleting app:", err);
     }
   }
 }
