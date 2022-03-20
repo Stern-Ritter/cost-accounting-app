@@ -3,13 +3,9 @@ import {
   getFirestore,
   collection,
   addDoc,
-  getDoc,
   getDocs,
   doc,
-  setDoc,
   deleteDoc,
-  query,
-  where,
 } from "firebase/firestore";
 import Transaction from "./Transaction";
 import TrasactionModel from "./TransactionModel";
@@ -29,7 +25,9 @@ class FirebaseTransactionModel extends TrasactionModel {
 
   async getAll(): Promise<Transaction[] | null> {
     try {
-      const ref = collection(this.db, this.collectionName).withConverter(transactionConverter);
+      const ref = collection(this.db, this.collectionName).withConverter(
+        transactionConverter
+      );
       const querySnapshot = await getDocs(ref);
       const transactions: Transaction[] = [];
       querySnapshot.forEach((document) => transactions.push(document.data()));
@@ -42,7 +40,9 @@ class FirebaseTransactionModel extends TrasactionModel {
 
   async create(transaction: Transaction): Promise<string | null> {
     try {
-      const ref = collection(this.db, this.collectionName).withConverter(transactionConverter);
+      const ref = collection(this.db, this.collectionName).withConverter(
+        transactionConverter
+      );
       const querySnapshot = await addDoc(ref, transaction);
       console.log("Transaction written with ID: ", querySnapshot.id);
       return querySnapshot.id;

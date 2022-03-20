@@ -3,13 +3,9 @@ import {
   getFirestore,
   collection,
   addDoc,
-  getDoc,
   getDocs,
   doc,
-  setDoc,
   deleteDoc,
-  query,
-  where,
 } from "firebase/firestore";
 import Category from "./Category";
 import CategoryModel from "./CategoryModel";
@@ -29,7 +25,9 @@ class FirebaseCategoryModel extends CategoryModel {
 
   async getAll(): Promise<Category[] | null> {
     try {
-      const ref = collection(this.db, this.collectionName).withConverter(categoryConverter);
+      const ref = collection(this.db, this.collectionName).withConverter(
+        categoryConverter
+      );
       const querySnapshot = await getDocs(ref);
       const categories: Category[] = [];
       querySnapshot.forEach((document) => categories.push(document.data()));
@@ -42,7 +40,9 @@ class FirebaseCategoryModel extends CategoryModel {
 
   async create(category: Category): Promise<string | null> {
     try {
-      const ref = collection(this.db, this.collectionName).withConverter(categoryConverter);
+      const ref = collection(this.db, this.collectionName).withConverter(
+        categoryConverter
+      );
       const querySnapshot = await addDoc(ref, category);
       console.log("Category written with ID: ", querySnapshot.id);
       return querySnapshot.id;
