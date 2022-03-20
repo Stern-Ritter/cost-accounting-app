@@ -11,10 +11,13 @@ import FirebaseTransactionModel from "./transaction/FireBaseTransactionModel";
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const categoryStorage = new FirebaseCategoryModel(db, categoryCollectionName);
+const categoryStorage = new FirebaseCategoryModel(
+  db,
+  categoryCollectionName
+);
 const transactionStorage = new FirebaseTransactionModel(
   db,
   transactionCollectionName
 );
 
-export { categoryStorage, transactionStorage };
+export { db, categoryStorage, transactionStorage };

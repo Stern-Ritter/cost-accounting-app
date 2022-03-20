@@ -7,10 +7,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import Transaction from "./Transaction";
-import TrasactionModel from "./TransactionModel";
+import TransactionModel from "./TransactionModel";
 import transactionConverter from "../../utils/transactionConverter";
 
-class FirebaseTransactionModel extends TrasactionModel {
+class FirebaseTransactionModel extends TransactionModel {
   private db;
   private collectionName;
 
