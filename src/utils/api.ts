@@ -13,10 +13,10 @@ const firebaseConfig = {
   appId: "1:152084713601:web:880d8f9443cbb6c38ebd80",
 };
 
-export { 
+export {
   testCategoryCollectionName,
   testTransactionCollectionName,
   categoryCollectionName,
   transactionCollectionName,
-  firebaseConfig 
+  firebaseConfig,
 };

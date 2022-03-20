@@ -12,22 +12,38 @@ function AppHeader() {
       <nav>
         <ul className={styles.list}>
           <li className={styles["list-item"]}>
-            <NavLink className={styles.link} activeClassName={styles.activeLink} to="/expenses">
+            <NavLink
+              className={styles.link}
+              activeClassName={styles.activeLink}
+              to="/expenses"
+            >
               Расходы
             </NavLink>
           </li>
           <li className={styles["list-item"]}>
-            <NavLink className={styles.link} activeClassName={styles.activeLink} to="/analytics">
+            <NavLink
+              className={styles.link}
+              activeClassName={styles.activeLink}
+              to="/analytics"
+            >
               Аналитика
             </NavLink>
           </li>
           <li className={styles["list-item"]}>
-            <NavLink className={styles.link} activeClassName={styles.activeLink} to="/settings">
+            <NavLink
+              className={styles.link}
+              activeClassName={styles.activeLink}
+              to="/settings"
+            >
               Настройки
             </NavLink>
           </li>
           <li className={styles["list-item"]}>
-            <NavLink className={styles.link} activeClassName={styles.activeLink} to="/about">
+            <NavLink
+              className={styles.link}
+              activeClassName={styles.activeLink}
+              to="/about"
+            >
               О проекте
             </NavLink>
           </li>
