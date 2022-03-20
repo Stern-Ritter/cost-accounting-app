@@ -5,7 +5,9 @@ import styles from "./app.module.css";
 function App() {
   return (
     <Router>
-      <Switch></Switch>
+      <main className={styles.main}>
+        <Switch></Switch>
+      </main>
     </Router>
   );
 }
