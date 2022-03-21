@@ -1,6 +1,5 @@
 import React, { FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { State } from "../../services/store/store";
 import {
   setCategoryFormValue,
@@ -14,7 +13,6 @@ import styles from "./settings-form.module.css";
 
 function SettingsForm() {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: CATEGORY_FORM_CLEAR_STATE });
@@ -47,7 +45,7 @@ function SettingsForm() {
       subcategories,
       description,
     });
-    dispatch(createCategory(category, history));
+    dispatch(createCategory(category));
   };
 
   const clearForm = () => {
@@ -56,7 +54,7 @@ function SettingsForm() {
 
   return (
     <>
-      <h1 className={styles.title}>Создать категорию</h1>
+      <h1 className={styles.title}>Создать категорию:</h1>
       <form
         className={styles.form}
         onSubmit={onFormSubmit}

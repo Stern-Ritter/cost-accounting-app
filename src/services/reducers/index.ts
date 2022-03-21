@@ -5,6 +5,6 @@ import { expensesReducer } from "./expenses";
 
 export const rootReducer = combineReducers({
   categoryForm: categoryFormReducer,
-  trasnactionForm: transactionFormReducer,
+  transactionForm: transactionFormReducer,
   expenses: expensesReducer,
 });

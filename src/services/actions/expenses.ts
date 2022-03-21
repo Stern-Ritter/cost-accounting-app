@@ -58,10 +58,7 @@ export function getExpenses() {
   };
 }
 
-export function createCategory(
-  category: Category,
-  history: RouteComponentProps["history"]
-) {
+export function createCategory(category: Category) {
   return async function (dispatch: AppDispatch) {
     dispatch({ type: CREATE_CATEGORY });
     try {
@@ -70,7 +67,6 @@ export function createCategory(
         category.id = id;
         dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: category });
         dispatch({ type: CATEGORY_FORM_CLEAR_STATE });
-        history.push({ pathname: "/" });
       } else {
         dispatch({ type: CREATE_CATEGORY_FAILED });
       }
@@ -80,10 +76,7 @@ export function createCategory(
   };
 }
 
-export function createTransaction(
-  transaction: Transaction,
-  history: RouteComponentProps["history"]
-) {
+export function createTransaction(transaction: Transaction) {
   return async function (dispatch: AppDispatch) {
     dispatch({ type: CREATE_TRANSACTION });
     try {
@@ -92,7 +85,6 @@ export function createTransaction(
         transaction.id = id;
         dispatch({ type: CREATE_TRANSACTION_SUCCESS, payload: transaction });
         dispatch({ type: TRANSACTION_FORM_CLEAR_STATE });
-        history.push({ pathname: "/" });
       } else {
         dispatch({ type: CREATE_TRANSACTION_FAILED });
       }

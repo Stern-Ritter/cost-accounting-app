@@ -1,6 +1,5 @@
 import React, { FormEvent, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import Select, { SingleValue } from "react-select";
 import { State } from "../../services/store/store";
 import {
@@ -14,7 +13,6 @@ import styles from "./expenses-form.module.css";
 
 function ExpensesForm() {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: TRANSACTION_FORM_CLEAR_STATE });
@@ -22,7 +20,7 @@ function ExpensesForm() {
   }, [dispatch]);
 
   const { eventDate, category, subcategory, amount } = useSelector(
-    (store: State) => store.trasnactionForm.data
+    (store: State) => store.transactionForm.data
   );
   const isLoading = useSelector(
     (store: State) => store.expenses.createTransactionRequest
@@ -109,7 +107,7 @@ function ExpensesForm() {
       subcategory,
       amount,
     });
-    dispatch(createTransaction(transaction, history));
+    dispatch(createTransaction(transaction));
   };
 
   const clearForm = () => {
@@ -118,7 +116,7 @@ function ExpensesForm() {
 
   return (
     <>
-      <h1 className={styles.title}>Создать транзакцию</h1>
+      <h1 className={styles.title}>Создать транзакцию:</h1>
       <form
         className={styles.form}
         onSubmit={onFormSubmit}
