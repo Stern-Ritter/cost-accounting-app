@@ -8,7 +8,7 @@ export const setTrasnactionFormValue = ({
   field: string;
   value: string | string[];
 }) => ({
-  type: TRANSACTION_FORM_CLEAR_STATE,
+  type: TRANSACTION_FORM_SET_VALUE,
   payload: { field, value },
 });
 

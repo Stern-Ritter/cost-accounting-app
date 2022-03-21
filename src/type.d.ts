@@ -14,3 +14,10 @@ type TrasactionOption = {
   subcategory: string;
   amount: number;
 };
+
+type MultipleInputProps = {
+  name: string;
+  value: string[];
+  placeholder: string;
+  onValueChange: (value: { field: string; value: string[] }) => void;
+};

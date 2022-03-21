@@ -1,8 +1,9 @@
 import {
   TRANSACTION_FORM_SET_VALUE,
   TRANSACTION_FORM_CLEAR_STATE,
-  ITRANSACTION_FORM_SET_VALUE,
 } from "../actions";
+
+import { ITRANSACTION_FORM_SET_VALUE } from "../actions/expenses-form";
 
 type ITRANSACTION_FORM_CLEAR_STATE = {
   type: "TRANSACTION_FORM_CLEAR_STATE";

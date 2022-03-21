@@ -1,8 +1,6 @@
-import {
-  CATEGORY_FORM_SET_VALUE,
-  CATEGORY_FORM_CLEAR_STATE,
-  ICATEGORY_FORM_SET_VALUE,
-} from "../actions";
+import { CATEGORY_FORM_SET_VALUE, CATEGORY_FORM_CLEAR_STATE } from "../actions";
+
+import { ICATEGORY_FORM_SET_VALUE } from "../actions/settings-form";
 
 type ICATEGORY_FORM_CLEAR_STATE = {
   type: "CATEGORY_FORM_CLEAR_STATE";

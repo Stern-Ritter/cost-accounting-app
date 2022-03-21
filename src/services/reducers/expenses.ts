@@ -10,9 +10,11 @@ import {
   CREATE_CATEGORY,
   CREATE_CATEGORY_SUCCESS,
   CREATE_CATEGORY_FAILED,
+  CREATE_CATEGORY_CLEAR_STATUS,
   CREATE_TRANSACTION,
   CREATE_TRANSACTION_SUCCESS,
   CREATE_TRANSACTION_FAILED,
+  CREATE_TRANSACTION_CLEAR_STATUS,
 } from "../actions";
 
 type IGET_CATEGORIES = {
@@ -54,6 +56,10 @@ type ICREATE_CATEGORY_FAILED = {
   type: "CREATE_CATEGORY_FAILED";
 };
 
+type ICREATE_CATEGORY_CLEAR_STATUS = {
+  type: "CREATE_CATEGORY_CLEAR_STATUS";
+};
+
 type ICREATE_TRANSACTION = {
   type: "CREATE_TRANSACTION";
 };
@@ -67,6 +73,10 @@ type ICREATE_TRANSACTION_FAILED = {
   type: "CREATE_TRANSACTION_FAILED";
 };
 
+type ICREATE_TRANSACTION_CLEAR_STATUS = {
+  type: "CREATE_TRANSACTION_CLEAR_STATUS";
+};
+
 type EXPENSES_ACTION =
   | IGET_CATEGORIES
   | IGET_CATEGORIES_SUCCESS
@@ -77,9 +87,11 @@ type EXPENSES_ACTION =
   | ICREATE_CATEGORY
   | ICREATE_CATEGORY_SUCCESS
   | ICREATE_CATEGORY_FAILED
+  | ICREATE_CATEGORY_CLEAR_STATUS
   | ICREATE_TRANSACTION
   | ICREATE_TRANSACTION_SUCCESS
-  | ICREATE_TRANSACTION_FAILED;
+  | ICREATE_TRANSACTION_FAILED
+  | ICREATE_TRANSACTION_CLEAR_STATUS;
 
 const expensesInitialState = {
   categories: {
@@ -187,6 +199,13 @@ const expensesReducer = (
         createCategoryFailed: true,
       };
     }
+    case CREATE_CATEGORY_CLEAR_STATUS: {
+      return {
+        ...state,
+        createCategoryRequest: false,
+        createCategoryFailed: false,
+      };
+    }
     case CREATE_TRANSACTION: {
       return {
         ...state,
@@ -209,6 +228,13 @@ const expensesReducer = (
         ...state,
         createTransactionRequest: false,
         createTransactionFailed: true,
+      };
+    }
+    case CREATE_TRANSACTION_CLEAR_STATUS: {
+      return {
+        ...state,
+        createTransactionRequest: false,
+        createTransactionFailed: false,
       };
     }
     default: {
