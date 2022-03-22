@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Route, NavLink, useHistory, useLocation } from "react-router-dom";
 import { Chart } from "react-google-charts";
-import { DateRangePicker, Range } from "react-date-range";
+import { DateRangePicker, RangeKeyDict } from "react-date-range";
 import { ru } from "date-fns/locale";
 import alasql from "alasql";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,7 +71,7 @@ function Analytics() {
     }
   }, [range, history, search]);
 
-  const handleSelect = (selectedRange: Range) => {
+  const handleSelect = (selectedRange: RangeKeyDict) => {
     dispatch({
       type: SET_EXPENSES_FILTERS,
       payload: selectedRange.range1,

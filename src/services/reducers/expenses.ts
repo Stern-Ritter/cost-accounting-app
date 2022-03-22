@@ -115,8 +115,8 @@ const expensesInitialState = {
     data: [] as Transaction[],
   },
   filters: {
-    startDate: null as unknown,
-    endDate: null as unknown,
+    startDate: undefined as Date | undefined,
+    endDate: undefined as Date | undefined,
   },
   createCategoryRequest: false,
   createCategoryFailed: false,

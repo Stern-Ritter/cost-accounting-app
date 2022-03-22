@@ -16,7 +16,7 @@ const firebaseConfig = {
 const serializeQuery = (queryParams: Record<string, any>) => {
   const query = Object.entries(queryParams).reduce(
     (acc, [key, value], index, array) => {
-      if (value === "" || value === null) {
+      if (!value) {
         return acc;
       }
       const postfix = index === array.length - 1 ? "" : "&";
