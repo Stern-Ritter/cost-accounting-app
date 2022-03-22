@@ -1,4 +1,4 @@
-import React from "react";
+import React, { KeyboardEvent } from "react";
 import styles from "./multiple-input.module.css";
 
 function MultipleInput({
@@ -14,7 +14,7 @@ function MultipleInput({
     });
   }
 
-  function addTags(evt: React.KeyboardEvent<HTMLInputElement>) {
+  function addTags(evt: KeyboardEvent<HTMLInputElement>) {
     const input = evt.target as HTMLInputElement;
     if (input.value.trim().length > 0) {
       onValueChange({
@@ -22,6 +22,13 @@ function MultipleInput({
         value: [...value, input.value],
       });
       input.value = "";
+    }
+  }
+
+  function onKeyDownHandler(evt: KeyboardEvent<HTMLInputElement>) {
+    if (evt.key === "Enter") {
+      evt.preventDefault();
+      addTags(evt);
     }
   }
 
@@ -40,7 +47,7 @@ function MultipleInput({
       <input
         className={styles.input}
         type="text"
-        onKeyDown={(event) => (event.key === " " ? addTags(event) : null)}
+        onKeyDown={onKeyDownHandler}
         placeholder={placeholder}
         name={name}
         id={name}

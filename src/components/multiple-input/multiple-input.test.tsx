@@ -59,7 +59,7 @@ describe("MultipleInput", () => {
     );
     const input = screen.getByPlaceholderText("Placeholder text");
     userEvent.type(input, "third");
-    userEvent.keyboard("{space}");
+    userEvent.keyboard("{enter}");
     expect(mockOnValueChangeFn).toHaveBeenCalledTimes(1);
     expect(mockOnValueChangeFn).toHaveBeenCalledWith({
       field: "field",

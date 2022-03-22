@@ -79,7 +79,7 @@ function SettingsForm() {
         <MultipleInput
           name="subcategories"
           value={subcategories}
-          placeholder="Нажмите пробел чтобы добавить"
+          placeholder="Нажмите Enter чтобы добавить"
           onValueChange={onMultipleInputChange}
         />
         <label className={styles.label} htmlFor="description">

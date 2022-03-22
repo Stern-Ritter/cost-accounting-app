@@ -7,6 +7,7 @@ import {
   GET_EXPENSES,
   GET_EXPENSES_SUCCESS,
   GET_EXPENSES_FAILED,
+  SET_EXPENSES_FILTERS,
   CREATE_CATEGORY,
   CREATE_CATEGORY_SUCCESS,
   CREATE_CATEGORY_FAILED,
@@ -41,6 +42,14 @@ type IGET_EXPENSES_SUCCESS = {
 
 type IGET_EXPENSES_FAILED = {
   type: "GET_EXPENSES_FAILED";
+};
+
+type ISET_EXPENSES_FILTERS = {
+  type: "SET_EXPENSES_FILTERS";
+  payload: {
+    startDate: Date;
+    endDate: Date;
+  };
 };
 
 type ICREATE_CATEGORY = {
@@ -84,6 +93,7 @@ type EXPENSES_ACTION =
   | IGET_EXPENSES
   | IGET_EXPENSES_SUCCESS
   | IGET_EXPENSES_FAILED
+  | ISET_EXPENSES_FILTERS
   | ICREATE_CATEGORY
   | ICREATE_CATEGORY_SUCCESS
   | ICREATE_CATEGORY_FAILED
@@ -103,6 +113,10 @@ const expensesInitialState = {
     loading: false,
     hasError: false,
     data: [] as Transaction[],
+  },
+  filters: {
+    startDate: null as unknown,
+    endDate: null as unknown,
   },
   createCategoryRequest: false,
   createCategoryFailed: false,
@@ -172,6 +186,15 @@ const expensesReducer = (
           ...state.transactions,
           loading: false,
           hasError: true,
+        },
+      };
+    }
+    case SET_EXPENSES_FILTERS: {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          ...action.payload,
         },
       };
     }

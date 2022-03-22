@@ -90,14 +90,20 @@ describe("ExpensesForm", () => {
       "Создать транзакцию:"
     );
 
-    expect(screen.getByRole("combobox", { name: "Категория:" })).toBeInTheDocument();
-    expect(screen.getByRole("combobox", { name: "Подкатегория:" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("combobox", { name: "Категория:" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("combobox", { name: "Подкатегория:" })
+    ).toBeInTheDocument();
     expect(screen.getByTestId("date")).toHaveAttribute(
       "value",
       String(transaction.eventDate)
     );
-    expect(screen.getByRole("spinbutton", { name: "Сумма:" }))
-    .toHaveAttribute('value', "1000");
+    expect(screen.getByRole("spinbutton", { name: "Сумма:" })).toHaveAttribute(
+      "value",
+      "1000"
+    );
 
     expect(screen.getAllByRole("button")).toHaveLength(2);
     expect(screen.getByText("Очистить форму")).toHaveAttribute(
@@ -107,15 +113,21 @@ describe("ExpensesForm", () => {
     expect(screen.getByText("Создать")).toHaveAttribute("type", "submit");
 
     expect(mockDispatchFn).toHaveBeenCalledTimes(2);
-    expect(mockDispatchFn).toHaveBeenNthCalledWith(1, { type: TRANSACTION_FORM_CLEAR_STATE });
-    expect(mockDispatchFn).toHaveBeenNthCalledWith(2, { type: CREATE_TRANSACTION_CLEAR_STATUS });
+    expect(mockDispatchFn).toHaveBeenNthCalledWith(1, {
+      type: TRANSACTION_FORM_CLEAR_STATE,
+    });
+    expect(mockDispatchFn).toHaveBeenNthCalledWith(2, {
+      type: CREATE_TRANSACTION_CLEAR_STATUS,
+    });
 
     const submitButton = screen.getByRole("button", { name: "Создать" });
     expect(submitButton).not.toBeDisabled();
     userEvent.click(submitButton);
     expect(mockDispatchFn).toHaveBeenCalledTimes(3);
     expect(createTransactionSpy).toHaveBeenCalledTimes(1);
-    expect(createTransactionSpy).toHaveBeenLastCalledWith(new Transaction(transaction));
+    expect(createTransactionSpy).toHaveBeenLastCalledWith(
+      new Transaction(transaction)
+    );
 
     const resetButton = screen.getByRole("button", { name: "Очистить форму" });
     expect(resetButton).not.toBeDisabled();

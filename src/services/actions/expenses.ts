@@ -1,4 +1,3 @@
-import { RouteComponentProps } from "react-router-dom";
 import { categoryStorage, transactionStorage } from "../../model/storage";
 
 import Category from "../../model/category/Category";
@@ -14,6 +13,7 @@ export const GET_CATEGORIES_FAILED = "GET_CATEGORIES_FAILED";
 export const GET_EXPENSES = "GET_EXPENSES";
 export const GET_EXPENSES_SUCCESS = "GET_EXPENSES_SUCCESS";
 export const GET_EXPENSES_FAILED = "GET_EXPENSES_FAILED";
+export const SET_EXPENSES_FILTERS = "SET_EXPENSES_FILTERS";
 
 export const CREATE_CATEGORY = "CREATE_CATEGORY";
 export const CREATE_CATEGORY_SUCCESS = "CREATE_CATEGORY_SUCCESS";
@@ -67,6 +67,7 @@ export function createCategory(category: Category) {
         category.id = id;
         dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: category });
         dispatch({ type: CATEGORY_FORM_CLEAR_STATE });
+        dispatch({ type: CREATE_CATEGORY_CLEAR_STATUS });
       } else {
         dispatch({ type: CREATE_CATEGORY_FAILED });
       }
@@ -85,6 +86,7 @@ export function createTransaction(transaction: Transaction) {
         transaction.id = id;
         dispatch({ type: CREATE_TRANSACTION_SUCCESS, payload: transaction });
         dispatch({ type: TRANSACTION_FORM_CLEAR_STATE });
+        dispatch({ type: CREATE_TRANSACTION_CLEAR_STATUS });
       } else {
         dispatch({ type: CREATE_TRANSACTION_FAILED });
       }

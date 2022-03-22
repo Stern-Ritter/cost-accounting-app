@@ -24,7 +24,7 @@ function AppHeader() {
             <NavLink
               className={styles.link}
               activeClassName={styles.activeLink}
-              to="/analytics"
+              to="/analytics/table"
             >
               Аналитика
             </NavLink>

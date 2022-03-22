@@ -14,7 +14,7 @@ const transactionConverter = {
       eventDate: data.eventDate,
       category: data.category,
       subcategory: data.subcategory,
-      amount: data.amount,
+      amount: Number(data.amount),
     });
   },
 };

@@ -85,7 +85,7 @@ describe("SettingsForm", () => {
     expect(screen.getByRole("textbox", { name: "Категория:" })).toBeRequired();
     expect(
       screen.getByRole("textbox", { name: "Подкатегории:" })
-    ).toHaveAttribute("placeholder", "Нажмите пробел чтобы добавить");
+    ).toHaveAttribute("placeholder", "Нажмите Enter чтобы добавить");
     expect(screen.getAllByTestId("value")).toHaveLength(2);
     expect(screen.getByRole("textbox", { name: "Описание:" })).toHaveValue(
       category.description
