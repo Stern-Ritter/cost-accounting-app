@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import AppHeader from "../app-header/app-header";
+import MainPage from "../main-page/main-page";
 import ExpensesForm from "../expenses-form/expenses-form";
 import Analytics from "../analytics/analytics";
 import SettingsForm from "../settings-form/settings-from";
@@ -29,6 +30,9 @@ function App() {
       <AppHeader />
       <main className={styles.main}>
         <Switch>
+          <Route path="/" exact>
+            <MainPage />
+          </Route>
           <Route path="/expenses" exact>
             <ExpensesForm />
           </Route>
