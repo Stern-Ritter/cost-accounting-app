@@ -1,6 +1,8 @@
+const parentCollectionName = "users";
 const categoryCollectionName = "cost-counting-categories";
 const transactionCollectionName = "cost-counting-transactions";
 
+const testParentCollectionName = "test-users";
 const testCategoryCollectionName = "test-cost-counting-categories";
 const testTransactionCollectionName = "test-cost-counting-transactions";
 
@@ -47,10 +49,12 @@ const deserializeQuery = (
 };
 
 export {
-  testCategoryCollectionName,
-  testTransactionCollectionName,
+  parentCollectionName,
   categoryCollectionName,
   transactionCollectionName,
+  testParentCollectionName,
+  testCategoryCollectionName,
+  testTransactionCollectionName,
   firebaseConfig,
   serializeQuery,
   deserializeQuery,

@@ -6,8 +6,13 @@ import { getFirestore } from "firebase/firestore";
 import { initializeApp, deleteApp, FirebaseApp } from "firebase/app";
 import FirebaseTransactionModel from "./FireBaseTransactionModel";
 import Transaction from "./Transaction";
-import { firebaseConfig, testTransactionCollectionName } from "../../utils/api";
+import { 
+  firebaseConfig,
+  testParentCollectionName,
+  testTransactionCollectionName 
+} from "../../utils/api";
 
+const testUserUID = 'testUID';
 let app: FirebaseApp;
 let db;
 let storage: FirebaseTransactionModel;
@@ -16,7 +21,11 @@ describe("FirebaseTransactionModel", () => {
   beforeAll(() => {
     app = initializeApp(firebaseConfig);
     db = getFirestore(app);
-    storage = new FirebaseTransactionModel(db, testTransactionCollectionName);
+    storage = new FirebaseTransactionModel(
+      db,
+      testParentCollectionName,
+      testTransactionCollectionName
+      );
   });
 
   afterAll(() => {
@@ -24,12 +33,12 @@ describe("FirebaseTransactionModel", () => {
   });
 
   beforeEach(async () => {
-    await storage.deleteAll();
+    await storage.deleteAll(testUserUID);
   });
 
   it(`method getAll() return empty array if
   method create() has never been called yet`, async () => {
-    const transactions = await storage.getAll();
+    const transactions = await storage.getAll(testUserUID);
     expect(transactions).toStrictEqual([]);
   });
 
@@ -58,14 +67,14 @@ describe("FirebaseTransactionModel", () => {
     const operations: Promise<string>[] = [];
     elements.forEach((element) => {
       const transactionObj = new Transaction(element);
-      operations.push(storage.create(transactionObj) as Promise<string>);
+      operations.push(storage.create(testUserUID, transactionObj) as Promise<string>);
     });
     const results = await Promise.all(operations);
     results.forEach((id, idx) => {
       elements[idx].id = id;
     });
 
-    const transactions = await storage.getAll();
+    const transactions = await storage.getAll(testUserUID);
     elements.forEach((expectedTransaction) => {
       expect(transactions).toContainEqual(expectedTransaction);
     });
@@ -96,15 +105,15 @@ describe("FirebaseTransactionModel", () => {
     const operations: Promise<string>[] = [];
     elements.forEach((element) => {
       const transactionObj = new Transaction(element);
-      operations.push(storage.create(transactionObj) as Promise<string>);
+      operations.push(storage.create(testUserUID, transactionObj) as Promise<string>);
     });
     const results = await Promise.all(operations);
     results.forEach((id, idx) => {
       elements[idx].id = id;
     });
 
-    const done = await storage.delete(elements[2].id as string);
-    const transactions = await storage.getAll();
+    const done = await storage.delete(testUserUID, elements[2].id as string);
+    const transactions = await storage.getAll(testUserUID);
     expect(done).toBeTruthy();
     expect(transactions).not.toContainEqual(elements[2]);
     expect(transactions).toContainEqual(elements[0]);

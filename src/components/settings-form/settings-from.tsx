@@ -1,5 +1,7 @@
 import React, { FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { State } from "../../services/store/store";
 import {
   setCategoryFormValue,
@@ -9,10 +11,12 @@ import {
 } from "../../services/actions";
 import MultipleInput from "../multiple-input/multiple-input";
 import Category from "../../model/category/Category";
+import { auth } from "../../model/storage";
 import styles from "./settings-form.module.css";
 
 function SettingsForm() {
   const dispatch = useDispatch();
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     dispatch({ type: CATEGORY_FORM_CLEAR_STATE });
@@ -45,7 +49,9 @@ function SettingsForm() {
       subcategories,
       description,
     });
-    dispatch(createCategory(category));
+    if (user) {
+      dispatch(createCategory(user.uid, category));
+    }
   };
 
   const clearForm = () => {
@@ -54,6 +60,7 @@ function SettingsForm() {
 
   return (
     <>
+      {!user && <Redirect to="/auth" />}
       <h1 className={styles.title}>Создать категорию:</h1>
       <form
         className={styles.form}

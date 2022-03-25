@@ -1,5 +1,12 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { Route, NavLink, useHistory, useLocation } from "react-router-dom";
+import React, { useMemo, useEffect } from "react";
+import {
+  Route,
+  NavLink,
+  useHistory,
+  useLocation,
+  Redirect,
+} from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Chart } from "react-google-charts";
 import { DateRangePicker, RangeKeyDict } from "react-date-range";
 import { ru } from "date-fns/locale";
@@ -7,6 +14,7 @@ import alasql from "alasql";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_EXPENSES_FILTERS } from "../../services/actions";
 import { State } from "../../services/store/store";
+import { auth } from "../../model/storage";
 import { serializeQuery, deserializeQuery } from "../../utils/api";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -16,6 +24,7 @@ function Analytics() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { search } = useLocation();
+  const [user] = useAuthState(auth);
 
   const expenses = useSelector(
     (store: State) => store.expenses.transactions.data
@@ -35,11 +44,9 @@ function Analytics() {
   );
 
   useEffect(() => {
-    console.log("search", search);
     if (search) {
       let start;
       let end;
-      console.log(Object.entries(deserializeQuery(search)));
       Object.entries(deserializeQuery(search)).forEach(([key, value]) => {
         if (key === "start") {
           start = new Date(value);
@@ -63,7 +70,6 @@ function Analytics() {
       start: range.startDate,
       end: range.endDate,
     });
-    console.log("query", query);
     if (query) {
       history.replace({ search: query });
     } else {
@@ -108,6 +114,7 @@ function Analytics() {
 
   return (
     <>
+      {!user && <Redirect to="/auth" />}
       <h1 className={styles.title}>Расходы:</h1>
       <nav>
         <ul className={styles.list}>

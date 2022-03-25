@@ -71,6 +71,10 @@
   cursor: not-allowed;
 }
 
+.button:hover {
+  background: #4682b4;
+}
+
 .create-error {
   composes: text;
   padding: 10px;

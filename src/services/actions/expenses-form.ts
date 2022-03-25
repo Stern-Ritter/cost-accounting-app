@@ -7,10 +7,11 @@ export const setTrasnactionFormValue = ({
 }: {
   field: string;
   value: string | string[];
-}) => ({
-  type: TRANSACTION_FORM_SET_VALUE,
-  payload: { field, value },
-});
+}) =>
+  ({
+    type: TRANSACTION_FORM_SET_VALUE,
+    payload: { field, value },
+  } as const);
 
 export type ITRANSACTION_FORM_SET_VALUE = ReturnType<
   typeof setTrasnactionFormValue

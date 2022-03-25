@@ -1,6 +1,8 @@
 import React, { FormEvent, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select, { SingleValue } from "react-select";
+import { Redirect } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { State } from "../../services/store/store";
 import {
   setTrasnactionFormValue,
@@ -9,10 +11,12 @@ import {
   createTransaction,
 } from "../../services/actions";
 import Transaction from "../../model/transaction/Transaction";
+import { auth } from "../../model/storage";
 import styles from "./expenses-form.module.css";
 
 function ExpensesForm() {
   const dispatch = useDispatch();
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
     dispatch({ type: TRANSACTION_FORM_CLEAR_STATE });
@@ -107,7 +111,9 @@ function ExpensesForm() {
       subcategory,
       amount,
     });
-    dispatch(createTransaction(transaction));
+    if (user) {
+      dispatch(createTransaction(user.uid, transaction));
+    }
   };
 
   const clearForm = () => {
@@ -116,6 +122,7 @@ function ExpensesForm() {
 
   return (
     <>
+      {!user && <Redirect to="/auth" />}
       <h1 className={styles.title}>Создать транзакцию:</h1>
       <form
         className={styles.form}

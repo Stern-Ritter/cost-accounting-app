@@ -26,11 +26,13 @@ export const CREATE_TRANSACTION_FAILED = "CREATE_TRANSACTION_FAILED";
 export const CREATE_TRANSACTION_CLEAR_STATUS =
   "CREATE_TRANSACTION_CLEAR_STATUS";
 
-export function getCategories() {
+export function getCategories(userUID: string) {
   return async function (dispatch: AppDispatch) {
     dispatch({ type: GET_CATEGORIES });
     try {
-      const categories: Category[] | null = await categoryStorage.getAll();
+      const categories: Category[] | null = await categoryStorage.getAll(
+        userUID
+      );
       if (categories !== null) {
         dispatch({ type: GET_CATEGORIES_SUCCESS, payload: categories });
       } else {
@@ -42,11 +44,13 @@ export function getCategories() {
   };
 }
 
-export function getExpenses() {
+export function getExpenses(userUID: string) {
   return async function (dispatch: AppDispatch) {
     dispatch({ type: GET_EXPENSES });
     try {
-      const expenses: Transaction[] | null = await transactionStorage.getAll();
+      const expenses: Transaction[] | null = await transactionStorage.getAll(
+        userUID
+      );
       if (expenses !== null) {
         dispatch({ type: GET_EXPENSES_SUCCESS, payload: expenses });
       } else {
@@ -58,11 +62,11 @@ export function getExpenses() {
   };
 }
 
-export function createCategory(category: Category) {
+export function createCategory(userUID: string, category: Category) {
   return async function (dispatch: AppDispatch) {
     dispatch({ type: CREATE_CATEGORY });
     try {
-      const id = await categoryStorage.create(category);
+      const id = await categoryStorage.create(userUID, category);
       if (id !== null) {
         category.id = id;
         dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: category });
@@ -77,11 +81,11 @@ export function createCategory(category: Category) {
   };
 }
 
-export function createTransaction(transaction: Transaction) {
+export function createTransaction(userUID: string, transaction: Transaction) {
   return async function (dispatch: AppDispatch) {
     dispatch({ type: CREATE_TRANSACTION });
     try {
-      const id = await transactionStorage.create(transaction);
+      const id = await transactionStorage.create(userUID, transaction);
       if (id !== null) {
         transaction.id = id;
         dispatch({ type: CREATE_TRANSACTION_SUCCESS, payload: transaction });

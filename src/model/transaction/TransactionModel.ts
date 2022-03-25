@@ -1,10 +1,10 @@
 import Transaction from "./Transaction";
 
 abstract class TransactionModel {
-  abstract getAll(): any;
-  abstract create(category: Transaction): any;
-  abstract delete(id: string): any;
-  abstract deleteAll(): any;
+  abstract getAll(userUID: string): any;
+  abstract create(userUID: string, category: Transaction): any;
+  abstract delete(userUID: string, id: string): any;
+  abstract deleteAll(userUID: string): any;
 }
 
 export default TransactionModel;
