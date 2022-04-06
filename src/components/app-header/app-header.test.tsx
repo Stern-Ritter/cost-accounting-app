@@ -1,36 +1,70 @@
 import React from "react";
 import { StaticRouter } from "react-router";
+import * as auth from "react-firebase-hooks/auth";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 import AppHeader from "./app-header";
 
+const useAuthStateSpy = jest.spyOn(auth, "useAuthState");
+
+jest.mock("firebase/auth", () => ({
+  signOut: jest.fn(),
+  getAuth: jest.fn(),
+}));
+
 describe("AppHeader", () => {
-  beforeEach(() => {
+  it("renders component with logo link", () => {
+    useAuthStateSpy
+      .mockReturnValue([{ uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" }, false, undefined] as any);
     render(
       <StaticRouter>
         <AppHeader />
       </StaticRouter>
     );
-  });
-  it("renders component", () => {
     expect(screen.getByTestId("header")).toBeInTheDocument();
-  });
-  it("renders component with correct count of links", () => {
-    expect(screen.getAllByRole("link")).toHaveLength(5);
-  });
-  it("renders component with home page link", () => {
     expect(screen.getByText("Учет расходов")).toHaveAttribute("href", "/");
   });
-  it("renders component with expenses page link", () => {
+
+  it("renders component with correct links for authorized users", () => {
+    useAuthStateSpy
+      .mockReturnValue([{ uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" }, false, undefined] as any);
+    render(
+      <StaticRouter>
+        <AppHeader />
+      </StaticRouter>
+    );
+    expect(screen.getAllByRole("link")).toHaveLength(5);
+    expect(screen.getByText("Учет расходов")).toHaveAttribute("href", "/");
     expect(screen.getByText("Расходы")).toHaveAttribute("href", "/expenses");
-  });
-  it("renders component with analytics page link", () => {
-    expect(screen.getByText("Аналитика")).toHaveAttribute("href", "/analytics");
-  });
-  it("renders component with settings page link", () => {
+    expect(screen.getByText("Аналитика")).toHaveAttribute("href", "/analytics/table");
     expect(screen.getByText("Настройки")).toHaveAttribute("href", "/settings");
-  });
-  it("renders component with about page link", () => {
     expect(screen.getByText("О проекте")).toHaveAttribute("href", "/about");
+  });
+
+  it("renders component with correct logout button for authorized users", () => {
+    useAuthStateSpy
+      .mockReturnValue([{ uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" }, false, undefined] as any);
+    render(
+      <StaticRouter>
+        <AppHeader />
+      </StaticRouter>
+    );
+
+    const logoutButton = screen.getByRole("button", {name: "Выйти"});
+    expect(logoutButton).toBeInTheDocument();
+  });
+
+  it("renders component with correct links for unauthorized users", () => {
+    useAuthStateSpy
+      .mockReturnValue([null, false, undefined] as any);
+    render(
+      <StaticRouter>
+        <AppHeader />
+      </StaticRouter>
+    );
+    expect(screen.getAllByRole("link")).toHaveLength(3);
+    expect(screen.getByText("Войти")).toHaveAttribute("href", "/auth");
+    expect(screen.getByText("Регистрация")).toHaveAttribute("href", "/reg");
   });
 });
