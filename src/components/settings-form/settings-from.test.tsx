@@ -6,6 +6,8 @@ import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import * as redux from "react-redux";
 import { Provider } from "react-redux";
+import { StaticRouter } from "react-router";
+import * as auth from "react-firebase-hooks/auth";
 import SettingsForm from "./settings-from";
 import * as settingFormActions from "../../services/actions/settings-form";
 import * as expensesActions from "../../services/actions/expenses";
@@ -15,6 +17,7 @@ import {
 } from "../../services/actions";
 import Category from "../../model/category/Category";
 
+const userUID = "COmVnvWQZXNFr3bRNw0KPQGroGo2";
 const category = {
   id: "",
   name: "Category name",
@@ -25,6 +28,7 @@ const category = {
 const useDispatchSpy = jest.spyOn(redux, "useDispatch");
 const mockDispatchFn = jest.fn();
 const mockStore = configureMockStore([thunk]);
+const useAuthStateSpy = jest.spyOn(auth, "useAuthState");
 
 const setCategoryFormSpy = jest.spyOn(
   settingFormActions,
@@ -32,9 +36,16 @@ const setCategoryFormSpy = jest.spyOn(
 );
 const createCategorySpy = jest.spyOn(expensesActions, "createCategory");
 
+jest.mock("firebase/auth", () => ({
+  signOut: jest.fn(),
+  getAuth: jest.fn(),
+}));
+
 describe("SettingsForm", () => {
   beforeAll(() => {
     useDispatchSpy.mockReturnValue(mockDispatchFn);
+    useAuthStateSpy
+      .mockReturnValue([{ uid: userUID }, false, undefined] as any);
   });
 
   it("renders component", () => {
@@ -54,7 +65,9 @@ describe("SettingsForm", () => {
     });
     render(
       <Provider store={store}>
-        <SettingsForm />
+        <StaticRouter>
+          <SettingsForm />
+        </StaticRouter>
       </Provider>
     );
     expect(screen.getByRole("form")).toBeInTheDocument();
@@ -74,7 +87,9 @@ describe("SettingsForm", () => {
 
     render(
       <Provider store={store}>
-        <SettingsForm />
+        <StaticRouter>
+          <SettingsForm />
+        </StaticRouter>
       </Provider>
     );
 
@@ -110,7 +125,7 @@ describe("SettingsForm", () => {
     userEvent.click(submitButton);
     expect(mockDispatchFn).toHaveBeenCalledTimes(3);
     expect(createCategorySpy).toHaveBeenCalledTimes(1);
-    expect(createCategorySpy).toHaveBeenLastCalledWith(new Category(category));
+    expect(createCategorySpy).toHaveBeenLastCalledWith(userUID, new Category(category));
 
     const resetButton = screen.getByRole("button", { name: "Очистить форму" });
     expect(resetButton).not.toBeDisabled();
@@ -144,7 +159,9 @@ describe("SettingsForm", () => {
 
     render(
       <Provider store={store}>
-        <SettingsForm />
+        <StaticRouter>
+          <SettingsForm />
+        </StaticRouter>
       </Provider>
     );
 
@@ -168,7 +185,9 @@ describe("SettingsForm", () => {
 
     render(
       <Provider store={store}>
-        <SettingsForm />
+        <StaticRouter>
+          <SettingsForm />
+        </StaticRouter>
       </Provider>
     );
 
