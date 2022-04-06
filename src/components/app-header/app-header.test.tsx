@@ -3,7 +3,6 @@ import { StaticRouter } from "react-router";
 import * as auth from "react-firebase-hooks/auth";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import userEvent from "@testing-library/user-event";
 import AppHeader from "./app-header";
 
 const useAuthStateSpy = jest.spyOn(auth, "useAuthState");

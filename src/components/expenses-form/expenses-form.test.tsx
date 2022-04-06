@@ -6,6 +6,8 @@ import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import * as redux from "react-redux";
 import { Provider } from "react-redux";
+import { StaticRouter } from "react-router";
+import * as auth from "react-firebase-hooks/auth";
 import ExpensesForm from "../expenses-form/expenses-form";
 import * as expensesFormActions from "../../services/actions/expenses-form";
 import * as expensesActions from "../../services/actions/expenses";
@@ -15,6 +17,7 @@ import {
 } from "../../services/actions";
 import Transaction from "../../model/transaction/Transaction";
 
+const userUID = "COmVnvWQZXNFr3bRNw0KPQGroGo2";
 const transaction = {
   id: "",
   eventDate: 1648870661924,
@@ -26,6 +29,7 @@ const transaction = {
 const useDispatchSpy = jest.spyOn(redux, "useDispatch");
 const mockDispatchFn = jest.fn();
 const mockStore = configureMockStore([thunk]);
+const useAuthStateSpy = jest.spyOn(auth, "useAuthState");
 
 const setTrasnactionFormSpy = jest.spyOn(
   expensesFormActions,
@@ -33,9 +37,16 @@ const setTrasnactionFormSpy = jest.spyOn(
 );
 const createTransactionSpy = jest.spyOn(expensesActions, "createTransaction");
 
+jest.mock("firebase/auth", () => ({
+  signOut: jest.fn(),
+  getAuth: jest.fn(),
+}));
+
 describe("ExpensesForm", () => {
   beforeAll(() => {
     useDispatchSpy.mockReturnValue(mockDispatchFn);
+    useAuthStateSpy
+      .mockReturnValue([{ uid: userUID }, false, undefined] as any);
   });
 
   it("renders component", () => {
@@ -59,7 +70,9 @@ describe("ExpensesForm", () => {
     });
     render(
       <Provider store={store}>
-        <ExpensesForm />
+        <StaticRouter>
+          <ExpensesForm />
+        </StaticRouter>
       </Provider>
     );
     expect(screen.getByRole("form")).toBeInTheDocument();
@@ -82,7 +95,9 @@ describe("ExpensesForm", () => {
 
     render(
       <Provider store={store}>
-        <ExpensesForm />
+        <StaticRouter>
+          <ExpensesForm />
+        </StaticRouter>
       </Provider>
     );
 
@@ -126,7 +141,7 @@ describe("ExpensesForm", () => {
     expect(mockDispatchFn).toHaveBeenCalledTimes(3);
     expect(createTransactionSpy).toHaveBeenCalledTimes(1);
     expect(createTransactionSpy).toHaveBeenLastCalledWith(
-      new Transaction(transaction)
+      userUID, new Transaction(transaction)
     );
 
     const resetButton = screen.getByRole("button", { name: "Очистить форму" });
