@@ -208,7 +208,7 @@ const expensesReducer = (
     case CREATE_CATEGORY_SUCCESS: {
       return {
         ...state,
-        createCategoryRequest: true,
+        createCategoryRequest: false,
         categories: {
           ...state.categories,
           data: [...state.categories.data, action.payload],
