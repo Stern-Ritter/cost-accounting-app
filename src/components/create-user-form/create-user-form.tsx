@@ -92,18 +92,22 @@ function CreateUserForm() {
           onChange={onFormChange}
           value={repeatPassword}
           name="repeatPassword"
-          id="repeatPassword"
+          id="repeat-password"
           minLength={6}
           required
         />
+
         {isRepeatPasswordNotMatch && (
           <p className={styles.error}>Пароли не совпадают</p>
         )}
+
         {error && <p className={styles.error}>{error}</p>}
+
         <div className={styles.buttons}>
           <button className={styles.button} type="button" onClick={clearForm}>
             Очистить форму
           </button>
+
           <button
             className={styles.button}
             type="submit"
