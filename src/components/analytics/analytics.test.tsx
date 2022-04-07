@@ -69,7 +69,7 @@ describe("Analytics", () => {
     ] as any);
   });
 
-  it.skip("renders component", () => {
+  it("renders component", () => {
     const store = mockStore(
       state(
         transaction.map((el) => new Transaction(el)),
@@ -90,7 +90,7 @@ describe("Analytics", () => {
     ).toBeInTheDocument();
   });
 
-  it.skip("renders component with correct links", () => {
+  it("renders component with correct links", () => {
     const store = mockStore(
       state(
         transaction.map((el) => new Transaction(el)),
