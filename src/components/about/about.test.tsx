@@ -14,7 +14,11 @@ jest.mock("firebase/auth", () => ({
 
 describe("About", () => {
   beforeAll(() => {
-    useAuthStateSpy.mockReturnValue([{ uid: userUID }, false, undefined] as any);
+    useAuthStateSpy.mockReturnValue([
+      { uid: userUID },
+      false,
+      undefined,
+    ] as any);
   });
 
   it("render component", () => {

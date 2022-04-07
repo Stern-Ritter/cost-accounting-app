@@ -14,8 +14,11 @@ jest.mock("firebase/auth", () => ({
 
 describe("AppHeader", () => {
   it("renders component with logo link", () => {
-    useAuthStateSpy
-      .mockReturnValue([{ uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" }, false, undefined] as any);
+    useAuthStateSpy.mockReturnValue([
+      { uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" },
+      false,
+      undefined,
+    ] as any);
     render(
       <StaticRouter>
         <AppHeader />
@@ -26,8 +29,11 @@ describe("AppHeader", () => {
   });
 
   it("renders component with correct links for authorized users", () => {
-    useAuthStateSpy
-      .mockReturnValue([{ uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" }, false, undefined] as any);
+    useAuthStateSpy.mockReturnValue([
+      { uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" },
+      false,
+      undefined,
+    ] as any);
     render(
       <StaticRouter>
         <AppHeader />
@@ -36,27 +42,32 @@ describe("AppHeader", () => {
     expect(screen.getAllByRole("link")).toHaveLength(5);
     expect(screen.getByText("Учет расходов")).toHaveAttribute("href", "/");
     expect(screen.getByText("Расходы")).toHaveAttribute("href", "/expenses");
-    expect(screen.getByText("Аналитика")).toHaveAttribute("href", "/analytics/table");
+    expect(screen.getByText("Аналитика")).toHaveAttribute(
+      "href",
+      "/analytics/table"
+    );
     expect(screen.getByText("Настройки")).toHaveAttribute("href", "/settings");
     expect(screen.getByText("О проекте")).toHaveAttribute("href", "/about");
   });
 
   it("renders component with correct logout button for authorized users", () => {
-    useAuthStateSpy
-      .mockReturnValue([{ uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" }, false, undefined] as any);
+    useAuthStateSpy.mockReturnValue([
+      { uid: "COmVnvWQZXNFr3bRNw0KPQGroGo2" },
+      false,
+      undefined,
+    ] as any);
     render(
       <StaticRouter>
         <AppHeader />
       </StaticRouter>
     );
 
-    const logoutButton = screen.getByRole("button", {name: "Выйти"});
+    const logoutButton = screen.getByRole("button", { name: "Выйти" });
     expect(logoutButton).toBeInTheDocument();
   });
 
   it("renders component with correct links for unauthorized users", () => {
-    useAuthStateSpy
-      .mockReturnValue([null, false, undefined] as any);
+    useAuthStateSpy.mockReturnValue([null, false, undefined] as any);
     render(
       <StaticRouter>
         <AppHeader />

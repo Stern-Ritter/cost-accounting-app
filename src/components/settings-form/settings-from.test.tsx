@@ -44,8 +44,11 @@ jest.mock("firebase/auth", () => ({
 describe("SettingsForm", () => {
   beforeAll(() => {
     useDispatchSpy.mockReturnValue(mockDispatchFn);
-    useAuthStateSpy
-      .mockReturnValue([{ uid: userUID }, false, undefined] as any);
+    useAuthStateSpy.mockReturnValue([
+      { uid: userUID },
+      false,
+      undefined,
+    ] as any);
   });
 
   it("renders component", () => {
@@ -125,7 +128,10 @@ describe("SettingsForm", () => {
     userEvent.click(submitButton);
     expect(mockDispatchFn).toHaveBeenCalledTimes(3);
     expect(createCategorySpy).toHaveBeenCalledTimes(1);
-    expect(createCategorySpy).toHaveBeenLastCalledWith(userUID, new Category(category));
+    expect(createCategorySpy).toHaveBeenLastCalledWith(
+      userUID,
+      new Category(category)
+    );
 
     const resetButton = screen.getByRole("button", { name: "Очистить форму" });
     expect(resetButton).not.toBeDisabled();

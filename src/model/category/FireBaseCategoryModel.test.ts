@@ -6,13 +6,13 @@ import { getFirestore } from "firebase/firestore";
 import { initializeApp, deleteApp, FirebaseApp } from "firebase/app";
 import FirebaseCategoryModel from "./FireBaseCategoryModel";
 import Category from "./Category";
-import { 
+import {
   firebaseConfig,
   testParentCollectionName,
-  testCategoryCollectionName 
+  testCategoryCollectionName,
 } from "../../utils/api";
 
-const testUserUID = 'testUID';
+const testUserUID = "testUID";
 let app: FirebaseApp;
 let db;
 let storage: FirebaseCategoryModel;
@@ -64,7 +64,9 @@ describe("FirebaseCategoryModel", () => {
     const operations: Promise<string>[] = [];
     elements.forEach((element) => {
       const categoryObj = new Category(element);
-      operations.push(storage.create(testUserUID, categoryObj) as Promise<string>);
+      operations.push(
+        storage.create(testUserUID, categoryObj) as Promise<string>
+      );
     });
     const results = await Promise.all(operations);
     results.forEach((id, idx) => {
@@ -99,7 +101,9 @@ describe("FirebaseCategoryModel", () => {
     const operations: Promise<string>[] = [];
     elements.forEach((element) => {
       const categoryObj = new Category(element);
-      operations.push(storage.create(testUserUID, categoryObj) as Promise<string>);
+      operations.push(
+        storage.create(testUserUID, categoryObj) as Promise<string>
+      );
     });
     const results = await Promise.all(operations);
     results.forEach((id, idx) => {

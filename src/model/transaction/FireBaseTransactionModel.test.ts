@@ -6,13 +6,13 @@ import { getFirestore } from "firebase/firestore";
 import { initializeApp, deleteApp, FirebaseApp } from "firebase/app";
 import FirebaseTransactionModel from "./FireBaseTransactionModel";
 import Transaction from "./Transaction";
-import { 
+import {
   firebaseConfig,
   testParentCollectionName,
-  testTransactionCollectionName 
+  testTransactionCollectionName,
 } from "../../utils/api";
 
-const testUserUID = 'testUID';
+const testUserUID = "testUID";
 let app: FirebaseApp;
 let db;
 let storage: FirebaseTransactionModel;
@@ -25,7 +25,7 @@ describe("FirebaseTransactionModel", () => {
       db,
       testParentCollectionName,
       testTransactionCollectionName
-      );
+    );
   });
 
   afterAll(() => {
@@ -67,7 +67,9 @@ describe("FirebaseTransactionModel", () => {
     const operations: Promise<string>[] = [];
     elements.forEach((element) => {
       const transactionObj = new Transaction(element);
-      operations.push(storage.create(testUserUID, transactionObj) as Promise<string>);
+      operations.push(
+        storage.create(testUserUID, transactionObj) as Promise<string>
+      );
     });
     const results = await Promise.all(operations);
     results.forEach((id, idx) => {
@@ -105,7 +107,9 @@ describe("FirebaseTransactionModel", () => {
     const operations: Promise<string>[] = [];
     elements.forEach((element) => {
       const transactionObj = new Transaction(element);
-      operations.push(storage.create(testUserUID, transactionObj) as Promise<string>);
+      operations.push(
+        storage.create(testUserUID, transactionObj) as Promise<string>
+      );
     });
     const results = await Promise.all(operations);
     results.forEach((id, idx) => {

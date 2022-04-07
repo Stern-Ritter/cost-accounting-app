@@ -15,15 +15,20 @@ jest.mock("firebase/auth", () => ({
 
 describe("Main page", () => {
   beforeAll(() => {
-    useAuthStateSpy
-        .mockReturnValue([{ uid: userUID, email: userEmail }, false, undefined] as any);
+    useAuthStateSpy.mockReturnValue([
+      { uid: userUID, email: userEmail },
+      false,
+      undefined,
+    ] as any);
   });
 
   it("render component", () => {
     render(<MainPage />);
-    expect(screen.getByText(/приложение учета ваших расходов/i))
-        .toBeInTheDocument();
-    expect(screen.getByText(/добро пожаловать.*test@mail.ru/i))
-        .toBeInTheDocument();
+    expect(
+      screen.getByText(/приложение учета ваших расходов/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/добро пожаловать.*test@mail.ru/i)
+    ).toBeInTheDocument();
   });
 });

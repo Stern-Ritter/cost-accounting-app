@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../model/storage";
-import styles from './main-page.module.css';
+import styles from "./main-page.module.css";
 
 function MainPage() {
   const [user] = useAuthState(auth);

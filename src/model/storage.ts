@@ -16,7 +16,8 @@ const db = getFirestore(app);
 const categoryStorage = new FirebaseCategoryModel(
   db,
   parentCollectionName,
-  categoryCollectionName);
+  categoryCollectionName
+);
 const transactionStorage = new FirebaseTransactionModel(
   db,
   parentCollectionName,
