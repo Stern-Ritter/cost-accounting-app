@@ -41,7 +41,7 @@ function CreateUserForm() {
         history.push({ pathname: "/" });
       })
       .catch((err) => {
-        dispatch(setCreateUserFormErrorMessage({text: err.message}));
+        dispatch(setCreateUserFormErrorMessage({ text: err.message }));
       });
   };
 

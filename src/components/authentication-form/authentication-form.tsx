@@ -38,7 +38,7 @@ function AuthenticationForm() {
         history.push({ pathname: "/" });
       })
       .catch((err) => {
-        dispatch(setAuthenticationFormErrorMessage({text: err.message}));
+        dispatch(setAuthenticationFormErrorMessage({ text: err.message }));
       });
   };
 
