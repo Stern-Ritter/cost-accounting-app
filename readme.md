@@ -1,10 +1,10 @@
-# Проект "Приложение для учета расходов"
-
-## Описание проекта
+# Приложение для учета расходов
 
 ![Coverage](https://github.com/Stern-Ritter/cost-accounting-app/actions/workflows/coverage.yml/badge.svg)
 ![Sanity-check](https://github.com/Stern-Ritter/cost-accounting-app/actions/workflows/sanity-check.yml/badge.svg)
 ![Deploy](https://github.com/Stern-Ritter/cost-accounting-app/actions/workflows/deploy.yml/badge.svg)
+
+## Описание проекта
 
 Приложение позволяет создавать, редактировать, удалять задачи, данные хранятся в firebase.
 
@@ -15,6 +15,16 @@
 3. Возможность анализа расходов за произвольный период времени в виде таблицы и диаграммы (pie chart) c использованием react-google-charts;
 4. Сохранение данных в базе Firebase Firestore, отдельно для каждого пользователя;
 5. Поддержка регистрации и аутентификации пользователей с помощью react-firebase.
+
+## Использованные технологии
+
+- TypeScript,
+- HTML,
+- CSS,
+- React,
+- Redux,
+- Firebase,
+- Jest.
 
 **Github-pages**
 
